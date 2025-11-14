@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respira Nuevo León</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfVl3m6fTI7GnyzlApx6oZIT4_f9vRzpTezInW-5f-xeSCSRUkmOWEgTXtHvWNc0zWA7W1_rWYVz4tNOmgvPrPFGopYwd3xpB_ZZRWBaY4WwAIU6-QU51L9qUdB99xJQ1Nl7EdfGBUZOUrJn_vQeiI539J-kUVnUZ8idD07wFDLKvDcZ_cgibX3MvAZAYr/w945-h600-p-k-no-nu/Gemini_Generated_Image_rqvee2rqvee2rqve-removebg-preview.png" type="image/x-icon">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <header class="app-header">
+            <img src="logo.png" alt="Logo Respira Nuevo León" class="app-logo">
+        </header>
+
+        <section class="air-quality-status">
+            <div id="air-quality-display">Cargando datos de Monterrey...</div>
+        </section>
+
+        <section class="status-card">
+            <div class="status-visual" id="status-circle">100%</div>
+            <div class="status-text">
+                <h2>Estado del Filtro</h2>
+                <p id="status-message">Óptimo</p>
+            </div>
+        </section>
+
+        <section class="action-buttons">
+            
+            <button class="btn btn-primary" id="btn-register-change">
+                Registré un Nuevo Filtro
+            </button>
+            
+            <button class="btn btn-info" id="btn-open-habits">
+                💡 Hábitos Saludables
+            </button>
+
+            <button class="btn btn-warning" id="btn-open-calculator">
+                ⚙️ Calcular Eficacia
+            </button>
+
+            <button class="btn btn-dark-secondary" id="btn-open-design">
+                📐 Diseño 3D y Flujo de Aire
+            </button>
+
+            <a href="https://youtu.be/-KE7Z-mveMg?si=ALExPrZd5frZ04PJ" target="_blank" class="btn btn-info-dark btn-video-demo">
+                ▶️ Ver Video Demo (Metodología)
+            </a>
+        </section>
+
+        <section class="data-source-legend">
+            <p>Datos de monitoreo en tiempo real por: <strong>WAQI</strong>.</p>
+            <p>La calificación se basa en la normativa de calidad del aire US-EPA AQI.</p>
+        </section>
+
+        <section class="demo-controls">
+            <h3>Controles de Demo:</h3>
+            <button class="btn-demo" onclick="setEstado('optimo')">Simular Óptimo</button>
+            <button class="btn-demo" onclick="setEstado('alerta')">Simular Alerta</button>
+            <button class="btn-demo" onclick="setEstado('peligro')">Simular Peligro</button>
+        </section>
+
+    </div> 
+
+    <div class="modal-overlay hidden" id="modal-habits">
+        <div class="modal-content">
+            <button class="modal-close" id="btn-close-habits">&times;</button>
+            <h2>Hábitos para un Aire Limpio</h2>
+            <ul class="habits-list">
+                <li><strong>💨 Ventila tu casa:</strong> Abre ventanas 10-15 min al día, preferentemente con bajos niveles de contaminación.</li>
+                <li><strong>🧹 Controla el polvo:</strong> Aspira y usa trapos húmedos para limpiar.</li>
+                <li><strong>🚫 Evita fumar en interiores:</strong> El humo de tabaco es un contaminante severo.</li>
+                <li><strong>🌱 Cuida tus filtros:</strong> Usa la app para saber cuándo cambiar tu filtro HEPA.</li>
+                <li><strong>🕯️ Cuidado con velas y gas:</strong> Usar la campana extractora al cocinar reduce partículas.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-calculator">
+        <div class="modal-content">
+            <button class="modal-close" id="btn-close-calculator">&times;</button>
+            <h2>Calculadora de Eficacia</h2>
+            
+            <p class="modal-description">
+                Selecciona el tipo de filtro instalado y las medidas de tu habitación.
+            </p>
+
+            <div class="calculator-form">
+                
+                <label for="select-filtro">Tipo de Filtro (CADR Estimado):</label>
+                <select id="select-filtro">
+                    <option value="70">HEPA/Carbón (70 m³/h - Valor de Defensa)</option>
+                    <option value="90">MERV 13 (90 m³/h)</option>
+                    <option value="40">Filtro Aspiradora No HEPA (40 m³/h)</option>
+                </select>
+
+                <label for="input-ancho">Ancho (metros):</label>
+                <input type="number" id="input-ancho" placeholder="Ej: 3.5">
+                
+                <label for="input-largo">Largo (metros):</label>
+                <input type="number" id="input-largo" placeholder="Ej: 4">
+                
+                <button class="btn btn-primary" id="btn-calculate">Calcular</button>
+            </div>
+            
+            <div class="calculator-result hidden" id="calculator-result-box">
+                <h3>Resultado:</h3>
+                <p id="result-text">...</p>
+            </div>
+
+            <div class="calculator-footer">
+                <p>
+                    <strong>CADR de referencia:</strong> El cálculo usa un valor estimado de 
+                    60 m³/h, justificado por el diseño del ventilador axial de 120mm 
+                    y la resistencia del filtro.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-design">
+        <div class="modal-content">
+            <button class="modal-close" id="btn-close-design">&times;</button>
+            <h2>Ingeniería del Prototipo (FIME)</h2>
+            
+            <p class="modal-description">
+                El diseño de la carcasa fue optimizado para garantizar la máxima eficiencia de flujo (CADR) y un sellado hermético, utilizando manufactura aditiva.
+            </p>
+
+            <div class="design-details">
+                <h4>1. Sello Hermético de Clase A</h4>
+                <p>La Tapa Adaptadora impresa se asienta directamente sobre el borde de hule del filtro para forzar que el 100% del aire pase a través del filtro, eliminando las fugas.</p>
+                
+                <h4>2. Flujo Vertical Optimizado (CADR)</h4>
+                <p>El ventilador de 120mm se posiciona en el eje vertical (arriba) para succionar el aire de forma radial (360°), minimizando la turbulencia y maximizando la entrega de aire limpio.</p>
+                
+                <h4>3. Base Monolítica (Diseño Optimiz. FIME)</h4>
+                <p>La base con patas se imprimió en **una sola pieza** para garantizar máxima rigidez estructural y estabilidad. Su diseño eleva el filtro del suelo, asegurando la entrada de aire sin restricciones desde cualquier ángulo.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>

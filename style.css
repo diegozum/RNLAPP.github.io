@@ -1,0 +1,391 @@
+/* ================================================= */
+/* 1. ESTRUCTURA BASE Y RESET            */
+/* ================================================= */
+
+/* --- Reseteo Global --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegura que padding y border no sumen al ancho */
+}
+
+/* --- Cuerpo Principal y Contenedor de la App --- */
+body {
+    font-family: 'Lato', 'Arial', sans-serif;
+    background-color: #f0f2f5; /* Fondo gris claro */
+    color: #333;
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: flex-start; /* Alineado al inicio (arriba) */
+    min-height: 100vh;
+    padding: 20px; /* Margen para pantallas pequeñas (responsividad) */
+}
+
+.app-container {
+    width: 100%;
+    max-width: 400px; /* Ancho máximo estándar de celular (responsivo) */
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra sutil de app */
+    padding: 24px;
+}
+
+/* --- Encabezado y Logo --- */
+.app-header {
+    text-align: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 16px;
+}
+
+/* Reglas para el logo de imagen */
+.app-logo {
+    height: 50px; /* Altura estándar para logo en móvil */
+    width: auto;
+    display: block;
+    margin: 0 auto; /* Centrado */
+}
+
+/* ================================================= */
+/* 2. INDICADORES Y ESTADO DE FILTRO     */
+/* ================================================= */
+
+/* --- Tarjeta de Calidad del Aire (API) --- */
+.air-quality-status {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+#air-quality-display {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    color: white;
+    transition: background-color 0.5s ease;
+}
+
+/* CLASES DINÁMICAS (Colores según el nivel de contaminación) */
+.air-quality-status .buena { background-color: #2ecc71; }
+.air-quality-status .moderada { background-color: #f39c12; }
+.air-quality-status .mala { background-color: #e74c3c; }
+.air-quality-status .peligrosa { background-color: #8e44ad; }
+
+/* --- Tarjeta de Estado del Filtro (Círculo) --- */
+.status-card {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.status-visual {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Círculo */
+    margin: 0 auto 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.status-text h2 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.status-text p {
+    font-size: 22px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+/* Clases de Estado Dinámicas (Demo del Filtro) */
+.status-visual.optimo { background-color: #2ecc71; }
+.status-text.optimo { color: #2ecc71; }
+
+.status-visual.alerta { background-color: #f39c12; }
+.status-text.alerta { color: #f39c12; }
+
+.status-visual.peligro { background-color: #e74c3c; }
+.status-text.peligro { color: #e74c3c; }
+
+
+/* ================================================= */
+/* 3. BOTONES Y JERARQUÍA                */
+/* ================================================= */
+
+/* --- Estilo Base de Botones --- */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn {
+    display: block;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:active {
+    transform: scale(0.98); /* Efecto de click */
+}
+
+/* --- CLASES DE COLOR --- */
+
+.btn-primary { /* Azul Oscuro: Registro/Acción Primaria */
+    background-color: #005A9C; 
+    color: white;
+}
+.btn-primary:hover { background-color: #004a80; }
+
+.btn-info { /* Turquesa: Hábitos/Información Secundaria */
+    background-color: #17a2b8;
+    color: white;
+}
+.btn-info:hover { background-color: #138496; }
+
+.btn-warning { /* Naranja: Calculadora/Herramienta Clave */
+    background-color: #f39c12;
+    color: white;
+}
+.btn-warning:hover { background-color: #e67e22; }
+
+/* Nuevo Color: Gris Oscuro (Recursos de Ingeniería) */
+.btn-dark-secondary { 
+    background-color: #6c757d; 
+    color: white;
+}
+.btn-dark-secondary:hover { background-color: #5a6268; }
+
+/* Botón de Video (Recurso de Metodología, usando un turquesa diferenciado) */
+.btn-info-dark {
+    background-color: #17a2b8;
+    color: white;
+    margin-top: 15px; /* Separación visual para el video */
+}
+.btn-info-dark:hover {
+    background-color: #138496;
+}
+
+/* --- Leyenda de Fuente de Datos --- */
+.data-source-legend {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 11px;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+.data-source-legend p {
+    margin: 0;
+}
+
+
+/* ================================================= */
+/* 4. CONTROLES Y MODALES            */
+/* ================================================= */
+
+/* --- Controles de Demo --- */
+.demo-controls {
+    margin-top: 20px;
+    border-top: 1px dashed #ccc;
+    padding-top: 16px;
+    text-align: center;
+}
+.demo-controls h3 {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+.btn-demo {
+    padding: 5px 10px;
+    margin: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* --- Estilos Generales de Modal --- */
+.hidden {
+    display: none !important; /* Esconde la ventana */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Asegura que esté encima de todo */
+    padding: 20px;
+}
+
+.modal-content {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.modal-close:hover { color: #333; }
+
+.modal-content h2 {
+    text-align: center;
+    color: #005A9C;
+    margin-bottom: 20px;
+}
+
+/* --- Estilos Específicos Modal Hábitos --- */
+.habits-list {
+    list-style: none;
+    padding: 0;
+}
+.habits-list li {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+}
+.habits-list li::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-size: 18px;
+}
+
+/* --- Estilos Específicos Modal Calculadora --- */
+.modal-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calculator-form label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+}
+
+.calculator-form input,
+.calculator-form select {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.calculator-form select {
+    background-color: white;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Flecha personalizada (azul UANL) */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23005A9C%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.6-3.6%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px;
+}
+
+/* Quita flechas de inputs numéricos */
+.calculator-form input::-webkit-outer-spin-button,
+.calculator-form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.calculator-result {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.calculator-result h3 {
+    margin-bottom: 8px;
+    color: #005A9C;
+}
+
+.calculator-result p {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Pie de Página (Footer) de la Calculadora */
+.calculator-footer {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 10px;
+    color: #555;
+    line-height: 1.3;
+}
+
+
+/* --- Estilos Específicos Modal Diseño y Flujo --- */
+.design-details {
+    text-align: left;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+}
+
+.design-details h4 {
+    color: #005A9C;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.design-details p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
